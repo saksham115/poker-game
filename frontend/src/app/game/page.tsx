@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useMemo } from "react";
-import { motion } from "framer-motion";
-import { ArrowLeft, Trophy } from "lucide-react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, ScrollText, Trophy, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ActionBar } from "@/components/poker/ActionBar";
@@ -29,6 +29,16 @@ function GamePageInner() {
   }, [params]);
 
   const { state, sendAction } = useGameSession({ config });
+  const [historyOpen, setHistoryOpen] = useState(false);
+
+  useEffect(() => {
+    if (!historyOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setHistoryOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [historyOpen]);
 
   const heroSeat = state.seats.find((s) => s.uuid === state.heroUuid);
   const winnerStrength =
@@ -66,6 +76,14 @@ function GamePageInner() {
             </div>
             <div className="font-semibold text-gold capitalize text-[11px] sm:text-xs truncate">{state.status}</div>
           </div>
+          <button
+            type="button"
+            onClick={() => setHistoryOpen(true)}
+            aria-label="Open hand history"
+            className="lg:hidden inline-flex items-center justify-center min-h-11 min-w-11 rounded-md text-foreground/70 hover:text-foreground hover:bg-white/5 transition cursor-pointer"
+          >
+            <ScrollText size={18} />
+          </button>
         </div>
       </header>
 
@@ -138,6 +156,54 @@ function GamePageInner() {
           <GameLog entries={state.log} />
         </aside>
       </div>
+
+      <AnimatePresence>
+        {historyOpen && (
+          <motion.div
+            className="lg:hidden fixed inset-0 z-50 flex items-end"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setHistoryOpen(false)}
+              aria-hidden="true"
+            />
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-label="Hand history"
+              className="relative w-full max-h-[75dvh] flex flex-col bg-surface border-t border-gold/30 rounded-t-2xl shadow-2xl"
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 280 }}
+            >
+              <div className="flex items-center justify-between px-4 py-3 border-b border-border/60">
+                <div className="flex items-center gap-2">
+                  <ScrollText size={16} className="text-gold" />
+                  <h2 className="text-xs uppercase tracking-widest text-foreground/80 font-semibold">
+                    Hand history
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setHistoryOpen(false)}
+                  aria-label="Close hand history"
+                  className="inline-flex items-center justify-center min-h-11 min-w-11 -mr-2 rounded-md text-foreground/70 hover:text-foreground hover:bg-white/5 transition cursor-pointer"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+              <div className="flex-1 min-h-0">
+                <GameLog entries={state.log} hideHeader />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

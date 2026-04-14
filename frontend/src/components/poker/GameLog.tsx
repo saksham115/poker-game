@@ -8,6 +8,7 @@ import type { LogEntry } from "@/lib/types";
 
 interface GameLogProps {
   entries: LogEntry[];
+  hideHeader?: boolean;
 }
 
 const KIND_STYLES: Record<LogEntry["kind"], string> = {
@@ -19,7 +20,7 @@ const KIND_STYLES: Record<LogEntry["kind"], string> = {
   system: "text-foreground/50 italic",
 };
 
-export function GameLog({ entries }: GameLogProps) {
+export function GameLog({ entries, hideHeader = false }: GameLogProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,12 +30,17 @@ export function GameLog({ entries }: GameLogProps) {
   }, [entries.length]);
 
   return (
-    <div className="rounded-2xl border border-border bg-surface/60 backdrop-blur h-full flex flex-col">
-      <div className="border-b border-border px-4 py-3">
-        <h2 className="text-xs uppercase tracking-widest text-foreground/60 font-semibold">
-          Hand history
-        </h2>
-      </div>
+    <div className={cn(
+      "h-full flex flex-col",
+      !hideHeader && "rounded-2xl border border-border bg-surface/60 backdrop-blur"
+    )}>
+      {!hideHeader && (
+        <div className="border-b border-border px-4 py-3">
+          <h2 className="text-xs uppercase tracking-widest text-foreground/60 font-semibold">
+            Hand history
+          </h2>
+        </div>
+      )}
       <div
         ref={ref}
         className="flex-1 overflow-y-auto px-4 py-3 space-y-1 text-xs font-mono"
