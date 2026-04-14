@@ -100,7 +100,7 @@ export function ActionBar({
                 key={b.label}
                 disabled={disabled}
                 onClick={() => setRaiseAmount(b.amount)}
-                className="flex-1 rounded-md border border-border bg-black/30 px-2 py-1 text-[11px] font-medium text-foreground/70 transition hover:border-gold/40 hover:text-foreground disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
+                className="flex-1 min-h-11 sm:min-h-9 rounded-md border border-border bg-black/30 px-2 py-2 sm:py-1.5 text-[11px] font-medium text-foreground/70 transition hover:border-gold/40 hover:text-foreground disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
               >
                 {b.label}
               </button>

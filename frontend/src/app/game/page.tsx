@@ -39,7 +39,7 @@ function GamePageInner() {
   return (
     <main className="h-dvh flex flex-col overflow-hidden">
       <header className="flex items-center justify-between gap-2 px-3 md:px-8 py-3 md:py-4 border-b border-border/50">
-        <Button variant="ghost" size="sm" onClick={() => router.push("/")} className="shrink-0 px-2 sm:px-3">
+        <Button variant="ghost" size="sm" onClick={() => router.push("/")} className="shrink-0 min-h-11 px-3">
           <ArrowLeft size={14} /> <span className="hidden sm:inline">Leave table</span><span className="sm:hidden">Leave</span>
         </Button>
         <div className="flex items-center gap-3 sm:gap-6 text-xs min-w-0">
