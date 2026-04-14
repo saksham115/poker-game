@@ -160,6 +160,33 @@ function reducer(state: GameState, action: Action): GameState {
         }
         case "street_start": {
           const rs = e.round_state;
+          const newLog = [
+            ...state.log,
+            logEntry({
+              kind: "street",
+              round: rs.round_count,
+              text: `${e.street.toUpperCase()}${
+                rs.community_card.length
+                  ? ` — [${rs.community_card.join(" ")}]`
+                  : ""
+              }`,
+            }),
+          ];
+          if (e.street === "preflop") {
+            for (const entry of rs.action_histories.preflop ?? []) {
+              if (entry.action !== "SMALLBLIND" && entry.action !== "BIGBLIND") continue;
+              const playerName = entry.uuid ? nameFor(rs.seats, entry.uuid) : "?";
+              const label =
+                entry.action === "SMALLBLIND" ? "posts small blind" : "posts big blind";
+              newLog.push(
+                logEntry({
+                  kind: "action",
+                  round: rs.round_count,
+                  text: `${playerName} ${label} ${entry.amount ?? 0}`,
+                })
+              );
+            }
+          }
           return {
             ...state,
             street: e.street,
@@ -169,18 +196,7 @@ function reducer(state: GameState, action: Action): GameState {
             pot: rs.pot.main.amount,
             dealerBtn: rs.dealer_btn,
             activePlayerUuid: rs.seats[rs.next_player]?.uuid ?? null,
-            log: [
-              ...state.log,
-              logEntry({
-                kind: "street",
-                round: rs.round_count,
-                text: `${e.street.toUpperCase()}${
-                  rs.community_card.length
-                    ? ` — [${rs.community_card.join(" ")}]`
-                    : ""
-                }`,
-              }),
-            ].slice(-200),
+            log: newLog.slice(-200),
           };
         }
         case "ask_action": {
