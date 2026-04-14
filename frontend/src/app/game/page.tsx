@@ -10,7 +10,7 @@ import { ActionBar } from "@/components/poker/ActionBar";
 import { GameLog } from "@/components/poker/GameLog";
 import { Table } from "@/components/poker/Table";
 import { WinnerOverlay } from "@/components/poker/WinnerOverlay";
-import { useGameSocket } from "@/hooks/useGameSocket";
+import { useGameSession } from "@/hooks/useGameSession";
 import { formatChips } from "@/lib/utils";
 import type { GameConfig } from "@/lib/types";
 
@@ -28,7 +28,7 @@ function GamePageInner() {
     };
   }, [params]);
 
-  const { state, sendAction } = useGameSocket({ config });
+  const { state, sendAction } = useGameSession({ config });
 
   const heroSeat = state.seats.find((s) => s.uuid === state.heroUuid);
   const winnerStrength =

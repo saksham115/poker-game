@@ -1,0 +1,63 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+.pypirc
+
+# Virtual envs
+.venv/
+venv/
+env/
+ENV/
+
+# --- Node / Next.js ---
+node_modules/
+.next/
+out/
+.vercel/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# --- Environment ---
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# --- Editors / IDEs ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Fly.io ---
+fly.pid
+
+# --- Project ---
+docs/site/*
