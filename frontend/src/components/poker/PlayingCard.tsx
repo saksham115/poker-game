@@ -40,9 +40,9 @@ export interface PlayingCardProps {
 }
 
 const SIZE_CLASSES: Record<NonNullable<PlayingCardProps["size"]>, string> = {
-  sm: "w-9 h-12 text-[11px]",
-  md: "w-12 h-16 text-sm",
-  lg: "w-16 h-24 text-lg",
+  sm: "w-8 h-11 sm:w-9 sm:h-12 text-[10px] sm:text-[11px]",
+  md: "w-10 h-14 sm:w-12 sm:h-16 text-xs sm:text-sm",
+  lg: "w-11 h-16 sm:w-16 sm:h-24 text-sm sm:text-lg",
 };
 
 export function PlayingCard({

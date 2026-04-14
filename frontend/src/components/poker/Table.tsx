@@ -112,8 +112,8 @@ export function Table({
   (handInfo ?? []).forEach((h) => handByUuid.set(h.uuid, h));
 
   return (
-    <div className="relative w-full flex items-center justify-center">
-      <div className="relative aspect-[16/10] w-full max-w-[1100px]">
+    <div className="relative w-full h-full flex items-center justify-center">
+      <div className="relative poker-table-fit">
         <div className="felt-surface absolute inset-[8%] rounded-[50%]" />
         <div className="absolute inset-[10%] rounded-[50%] border border-gold/15 pointer-events-none" />
 
@@ -134,7 +134,7 @@ export function Table({
               </span>
             </motion.div>
           </div>
-          <div className="flex gap-1.5">
+          <div className="flex gap-1 sm:gap-1.5">
             <AnimatePresence>
               {community.map((card, i) => (
                 <PlayingCard
@@ -147,7 +147,7 @@ export function Table({
               {Array.from({ length: 5 - community.length }).map((_, i) => (
                 <div
                   key={`empty-${i}`}
-                  className="h-24 w-16 rounded-md border border-white/5 bg-black/20"
+                  className="h-16 w-11 sm:h-24 sm:w-16 rounded-md border border-white/5 bg-black/20"
                 />
               ))}
             </AnimatePresence>

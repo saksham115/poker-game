@@ -45,7 +45,7 @@ export function Seat({
         folded && "opacity-45"
       )}
     >
-      <div className="flex gap-1 h-[68px] items-end">
+      <div className="flex gap-1 h-14 sm:h-[68px] items-end">
         {cardsToShow ? (
           <>
             <PlayingCard card={cardsToShow[0]} size="md" dim={folded} />
@@ -57,7 +57,7 @@ export function Seat({
             <PlayingCard faceDown size="md" delay={0.05} />
           </>
         ) : (
-          <div className="h-[68px] w-[100px]" />
+          <div className="h-14 w-20 sm:h-[68px] sm:w-[100px]" />
         )}
       </div>
 
@@ -71,16 +71,16 @@ export function Seat({
         }
         transition={{ duration: 0.3 }}
         className={cn(
-          "relative flex items-center gap-2 rounded-full bg-black/70 px-3 py-1.5 backdrop-blur-sm min-w-[130px]",
+          "relative flex items-center gap-1.5 sm:gap-2 rounded-full bg-black/70 px-2 py-1 sm:px-3 sm:py-1.5 backdrop-blur-sm min-w-[96px] sm:min-w-[130px]",
           isActive && "bg-black/80"
         )}
       >
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-gold-soft to-gold-dark text-black">
-          {isHero ? <User size={16} /> : <span className="text-xs font-bold">{seat.name[0]}</span>}
+        <div className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-gradient-to-br from-gold-soft to-gold-dark text-black shrink-0">
+          {isHero ? <User className="size-3.5 sm:size-4" /> : <span className="text-[10px] sm:text-xs font-bold">{seat.name[0]}</span>}
         </div>
         <div className="flex flex-col min-w-0">
           <div className="flex items-center gap-1">
-            <span className="text-xs font-semibold truncate max-w-[80px]">
+            <span className="text-[11px] sm:text-xs font-semibold truncate max-w-[60px] sm:max-w-[80px]">
               {seat.name}
             </span>
             {isWinner && <Crown size={12} className="text-gold shrink-0" />}

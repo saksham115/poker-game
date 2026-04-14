@@ -37,41 +37,41 @@ function GamePageInner() {
       : null;
 
   return (
-    <main className="min-h-dvh flex flex-col">
-      <header className="flex items-center justify-between px-4 md:px-8 py-4 border-b border-border/50">
-        <Button variant="ghost" size="sm" onClick={() => router.push("/")}>
-          <ArrowLeft size={14} /> Leave table
+    <main className="h-dvh flex flex-col overflow-hidden">
+      <header className="flex items-center justify-between gap-2 px-3 md:px-8 py-3 md:py-4 border-b border-border/50">
+        <Button variant="ghost" size="sm" onClick={() => router.push("/")} className="shrink-0 px-2 sm:px-3">
+          <ArrowLeft size={14} /> <span className="hidden sm:inline">Leave table</span><span className="sm:hidden">Leave</span>
         </Button>
-        <div className="flex items-center gap-6 text-xs">
-          <div>
-            <div className="text-foreground/50 uppercase tracking-wider text-[10px]">
+        <div className="flex items-center gap-3 sm:gap-6 text-xs min-w-0">
+          <div className="min-w-0">
+            <div className="text-foreground/50 uppercase tracking-wider text-[9px] sm:text-[10px]">
               Round
             </div>
-            <div className="font-mono font-bold text-foreground tabular-nums">
+            <div className="font-mono font-bold text-foreground tabular-nums text-[11px] sm:text-xs">
               {state.currentRound || "–"}
               <span className="text-foreground/40"> / {state.totalRounds || config.max_rounds}</span>
             </div>
           </div>
-          <div>
-            <div className="text-foreground/50 uppercase tracking-wider text-[10px]">
+          <div className="min-w-0">
+            <div className="text-foreground/50 uppercase tracking-wider text-[9px] sm:text-[10px]">
               Blinds
             </div>
-            <div className="font-mono font-bold text-foreground tabular-nums">
+            <div className="font-mono font-bold text-foreground tabular-nums text-[11px] sm:text-xs">
               {config.small_blind}/{config.small_blind * 2}
             </div>
           </div>
-          <div>
-            <div className="text-foreground/50 uppercase tracking-wider text-[10px]">
+          <div className="min-w-0">
+            <div className="text-foreground/50 uppercase tracking-wider text-[9px] sm:text-[10px]">
               Status
             </div>
-            <div className="font-semibold text-gold capitalize">{state.status}</div>
+            <div className="font-semibold text-gold capitalize text-[11px] sm:text-xs truncate">{state.status}</div>
           </div>
         </div>
       </header>
 
-      <div className="flex-1 grid lg:grid-cols-[1fr_320px] gap-4 p-4 md:p-6">
-        <div className="relative flex flex-col gap-4 min-h-0">
-          <div className="relative flex-1 flex items-center justify-center">
+      <div className="flex-1 min-h-0 flex flex-col lg:flex-row gap-3 sm:gap-4 p-3 sm:p-4 md:p-6">
+        <div className="relative flex-1 min-w-0 min-h-0 flex flex-col gap-3 sm:gap-4">
+          <div className="relative flex-1 min-h-0 flex items-center justify-center">
             <Table
               seats={state.seats}
               heroUuid={state.heroUuid}
@@ -134,7 +134,7 @@ function GamePageInner() {
             onAction={sendAction}
           />
         </div>
-        <aside className="min-h-[300px] lg:min-h-0">
+        <aside className="hidden lg:block lg:w-[320px] shrink-0 min-h-0">
           <GameLog entries={state.log} />
         </aside>
       </div>

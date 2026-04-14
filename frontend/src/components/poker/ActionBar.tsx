@@ -67,9 +67,9 @@ export function ActionBar({
     <motion.div
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="relative rounded-2xl border border-border bg-surface/80 backdrop-blur-xl p-4 shadow-2xl"
+      className="relative shrink-0 rounded-2xl border border-border bg-surface/80 backdrop-blur-xl p-3 sm:p-4 shadow-2xl"
     >
-      <div className="flex items-center justify-between mb-3 text-xs uppercase tracking-wider">
+      <div className="flex items-center justify-between mb-2 sm:mb-3 text-[11px] sm:text-xs uppercase tracking-wider">
         <span className="text-foreground/50">
           {disabled ? "Waiting for opponents…" : "Your turn"}
         </span>
@@ -79,7 +79,7 @@ export function ActionBar({
       </div>
 
       {canRaise && (
-        <div className="mb-3 space-y-2">
+        <div className="mb-2 sm:mb-3 space-y-1.5 sm:space-y-2">
           <div className="flex items-center justify-between text-xs">
             <span className="text-foreground/60">Raise amount</span>
             <span className="font-mono text-gold font-semibold tabular-nums">
